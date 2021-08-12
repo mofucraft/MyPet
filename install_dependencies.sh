@@ -24,6 +24,6 @@ mvn install:install-file -D"file=./dl/1_9_R2_S.jar" -D"version=1.9.4-R0.1-SNAPSH
 mvn install:install-file -D"file=./dl/1_12_R1_S.jar" -D"version=1.12-R0.1-SNAPSHOT" -D"groupId=org.spigotmc" -D"artifactId=spigot" -D"packaging=jar"
 mvn install:install-file -D"file=./dl/1_16_R1_S.jar" -D"version=1.16.1-R0.1-SNAPSHOT" -D"groupId=org.spigotmc" -D"artifactId=spigot" -D"packaging=jar"
 mvn install:install-file -D"file=./dl/1_16_R2_S.jar" -D"version=1.16.5-R0.1-SNAPSHOT" -D"groupId=org.spigotmc" -D"artifactId=spigot" -D"packaging=jar"
-mvn install:install-file -D"file=.\dl\1_17_R1_S.jar" -D"version=1.17-R0.1-SNAPSHOT" -D"groupId=org.spigotmc" -D"artifactId=spigot" -D"packaging=jar"
+mvn install:install-file -D"file=./dl/1_17_R1_S.jar" -D"version=1.17-R0.1-SNAPSHOT" -D"groupId=org.spigotmc" -D"artifactId=spigot" -D"packaging=jar"
 
 #rm -r './dl'
