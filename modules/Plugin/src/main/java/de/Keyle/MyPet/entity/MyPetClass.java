@@ -49,7 +49,7 @@ public enum MyPetClass {
 	Fox(MyFox.class),
 	Ghast(MyGhast.class),
 	Giant(MyGiant.class),
-	GlowSquid(MyAxolotl.class),
+	GlowSquid(MyGlowSquid.class),
 	Goat(MyGoat.class),
 	Guardian(MyGuardian.class),
 	Hoglin(MyHoglin.class),

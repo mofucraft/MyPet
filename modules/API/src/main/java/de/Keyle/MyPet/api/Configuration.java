@@ -244,6 +244,9 @@ public class Configuration {
 
         }
 
+        public static class GlowSquid{
+            public static ConfigItem GROW_UP_ITEM;
+        }
         public static class Hoglin {
 
             public static ConfigItem GROW_UP_ITEM;
