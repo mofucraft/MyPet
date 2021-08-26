@@ -20,6 +20,19 @@
 
 package de.Keyle.MyPet.compat.v1_17_R1.util.iconmenu;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_17_R1.util.CraftChatMessage;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+
 import de.Keyle.MyPet.api.gui.IconMenu;
 import de.Keyle.MyPet.api.gui.IconMenuItem;
 import de.Keyle.MyPet.api.util.Compat;
@@ -30,33 +43,21 @@ import de.keyle.knbt.TagCompound;
 import de.keyle.knbt.TagList;
 import de.keyle.knbt.TagShort;
 import de.keyle.knbt.TagString;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.chat.IChatBaseComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_17_R1.util.CraftChatMessage;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Compat("v1_17_R1")
 public class IconMenuInventory implements de.Keyle.MyPet.api.gui.IconMenuInventory {
 
-    private static Method applyToItemMethhod = null;
+    private static Method applyToItemMethod = null;
 
     static {
         try {
-            Class craftMetaItemClass = Class.forName("org.bukkit.craftbukkit.v1_16_R3.inventory.CraftMetaItem");
-            applyToItemMethhod = ReflectionUtil.getMethod(craftMetaItemClass, "applyToItem", NBTTagCompound.class);
+            Class<?> craftMetaItemClass = Class.forName("org.bukkit.craftbukkit.v1_17_R1.inventory.CraftMetaItem");
+            applyToItemMethod = ReflectionUtil.getMethod(craftMetaItemClass, "applyToItem", CompoundTag.class);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -93,7 +94,7 @@ public class IconMenuInventory implements de.Keyle.MyPet.api.gui.IconMenuInvento
                     ItemStack item = createItemStack(menuItem);
                     minecraftInventory.setItem(slot, item);
                 } else {
-                    minecraftInventory.setItem(slot, ItemStack.b);
+                    minecraftInventory.setItem(slot, ItemStack.EMPTY);
                 }
             }
         }
@@ -126,19 +127,18 @@ public class IconMenuInventory implements de.Keyle.MyPet.api.gui.IconMenuInvento
         return size;
     }
 
-    protected ItemStack createItemStack(IconMenuItem icon) {
-        ItemStack is = CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(icon.getMaterial(), icon.getAmount(), (short) icon.getData()));
+    protected ItemStack createItemStack(IconMenuItem icon) { //TODO Check if this works properly
+        ItemStack is = CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(icon.getMaterial(), icon.getAmount()));
         if (is == null) {
             is = CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.STONE));
         }
-
         if (is.getTag() == null) {
-            is.setTag(new NBTTagCompound());
+            is.setTag(new CompoundTag());
         }
 
         if (icon.getBukkitMeta() != null) {
             try {
-                applyToItemMethhod.invoke(icon.getBukkitMeta(), is.getTag());
+                applyToItemMethod.invoke(icon.getBukkitMeta(), is.getTag());
             } catch (InvocationTargetException | IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -152,51 +152,51 @@ public class IconMenuInventory implements de.Keyle.MyPet.api.gui.IconMenuInvento
             TagList enchList = new TagList();
             enchList.addTag(enchTag);
 
-            is.getTag().set("Enchantments", ItemStackNBTConverter.compoundToVanillaCompound(enchList));
+            is.getTag().put("Enchantments", ItemStackNBTConverter.compoundToVanillaCompound(enchList));
         } else {
             is.getTag().remove("Enchantments");
         }
 
         // hide item attributes like attack damage
-        is.getTag().setInt("HideFlags", 63);
+        is.getTag().putInt("HideFlags", 63);
 
         // Prepare display tag
-        NBTTagCompound display;
-        if (is.getTag().hasKey("display")) {
+        CompoundTag display;
+        if (is.getTag().contains("display")) {
             display = is.getTag().getCompound("display");
         } else {
-            display = new NBTTagCompound();
-            is.getTag().set("display", display);
+            display = new CompoundTag();
+            is.getTag().put("display", display);
         }
 
         // set Title
         if (!icon.getTitle().equals("")) {
-            display.setString("Name", "{\"text\":\"" + icon.getTitle() + "\"}");
+            display.putString("Name", "{\"text\":\"" + icon.getTitle() + "\"}");
         }
 
         if (icon.getLore().size() > 0) {
             // set Lore
-            NBTTagList loreTag = new NBTTagList();
-            display.set("Lore", loreTag);
+        	ListTag loreTag = new ListTag();
+            display.put("Lore", loreTag);
             for (String loreLine : icon.getLore()) {
-                IChatBaseComponent cm = CraftChatMessage.fromStringOrNull(loreLine);
-                loreTag.add(NBTTagString.a(IChatBaseComponent.ChatSerializer.a(cm)));
+            	Component cm = CraftChatMessage.fromStringOrNull(loreLine);
+                loreTag.add(StringTag.valueOf(Component.Serializer.toJson(cm)));
             }
         }
 
         if (icon.hasMeta()) {
             TagCompound tag = new TagCompound();
             icon.getMeta().applyTo(tag);
-            NBTTagCompound vanillaTag = (NBTTagCompound) ItemStackNBTConverter.compoundToVanillaCompound(tag);
-            for (String key : vanillaTag.getKeys()) {
-                is.getTag().set(key, vanillaTag.get(key));
+            CompoundTag vanillaTag = (CompoundTag) ItemStackNBTConverter.compoundToVanillaCompound(tag);
+            for (String key : vanillaTag.getAllKeys()) {
+                is.getTag().put(key, vanillaTag.get(key));
             }
         }
 
         if (icon.getTags() != null) {
-            NBTTagCompound vanillaTag = (NBTTagCompound) ItemStackNBTConverter.compoundToVanillaCompound(icon.getTags());
-            for (String key : vanillaTag.getKeys()) {
-                is.getTag().set(key, vanillaTag.get(key));
+        	CompoundTag vanillaTag = (CompoundTag) ItemStackNBTConverter.compoundToVanillaCompound(icon.getTags());
+            for (String key : vanillaTag.getAllKeys()) {
+                is.getTag().put(key, vanillaTag.get(key));
             }
         }
 

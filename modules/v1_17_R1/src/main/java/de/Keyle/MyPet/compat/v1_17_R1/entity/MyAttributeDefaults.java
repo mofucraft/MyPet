@@ -20,118 +20,181 @@
 
 package de.Keyle.MyPet.compat.v1_17_R1.entity;
 
-import net.minecraft.world.entity.EntityInsentient;
-import net.minecraft.world.entity.EntityLiving;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.ai.attributes.AttributeProvider;
-import net.minecraft.world.entity.ambient.EntityBat;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.animal.horse.*;
-import net.minecraft.world.entity.boss.enderdragon.EntityEnderDragon;
-import net.minecraft.world.entity.boss.wither.EntityWither;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.monster.hoglin.EntityHoglin;
-import net.minecraft.world.entity.monster.piglin.EntityPiglin;
-import net.minecraft.world.entity.monster.piglin.EntityPiglinBrute;
-import net.minecraft.world.entity.npc.EntityVillager;
-import net.minecraft.world.entity.player.EntityHuman;
-
 import java.util.HashMap;
+
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.GlowSquid;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ambient.Bat;
+import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.animal.Cod;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.Dolphin;
+import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.Ocelot;
+import net.minecraft.world.entity.animal.Panda;
+import net.minecraft.world.entity.animal.Parrot;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.animal.Pufferfish;
+import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.Salmon;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.SnowGolem;
+import net.minecraft.world.entity.animal.Squid;
+import net.minecraft.world.entity.animal.TropicalFish;
+import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.entity.animal.goat.Goat;
+import net.minecraft.world.entity.animal.horse.Donkey;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.Llama;
+import net.minecraft.world.entity.animal.horse.Mule;
+import net.minecraft.world.entity.animal.horse.SkeletonHorse;
+import net.minecraft.world.entity.animal.horse.TraderLlama;
+import net.minecraft.world.entity.animal.horse.ZombieHorse;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.CaveSpider;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.ElderGuardian;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.monster.Evoker;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.Giant;
+import net.minecraft.world.entity.monster.Guardian;
+import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.monster.Illusioner;
+import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.entity.monster.Phantom;
+import net.minecraft.world.entity.monster.Pillager;
+import net.minecraft.world.entity.monster.Ravager;
+import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.entity.monster.Silverfish;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.entity.monster.Strider;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.entity.monster.Vindicator;
+import net.minecraft.world.entity.monster.Witch;
+import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.Zoglin;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.entity.monster.hoglin.Hoglin;
+import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.entity.monster.piglin.PiglinBrute;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.player.Player;
 
 public class MyAttributeDefaults {
 
-    private static final FastMap<EntityTypes<? extends EntityLiving>, AttributeProvider> defaultAttribute = new FastMap<>();
+    private static final FastMap<EntityType<?>, AttributeSupplier> defaultAttribute = new FastMap<>();
 
     static {
         defaultAttribute
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.ARMOR_STAND, EntityLiving.cL().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.BAT, EntityBat.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.BEE, EntityBee.eZ().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.BLAZE, EntityBlaze.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.CAT, EntityCat.fa().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.CAVE_SPIDER, EntityCaveSpider.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.CHICKEN, EntityChicken.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.COD, EntityFish.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.COW, EntityCow.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.CREEPER, EntityCreeper.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.DOLPHIN, EntityDolphin.eM().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.DONKEY, EntityHorseChestedAbstract.eL().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.DROWNED, EntityZombie.eS().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.ELDER_GUARDIAN, EntityGuardianElder.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.ENDERMAN, EntityEnderman.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.ENDERMITE, EntityEndermite.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.ENDER_DRAGON, EntityEnderDragon.m().a()).
-                putFast(com.sk89q.worldedit.world.entity.EntityTypes.EVOKER, EntityEvoker.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.FOX, EntityFox.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.GHAST, EntityGhast.eJ().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.GIANT, EntityGiantZombie.m().a())
-
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.GUARDIAN, EntityGuardian.eM().a())
-                .putFast(EntityTypes.HOGLIN, EntityHoglin.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.HORSE, EntityHorseAbstract.fi().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.HUSK, EntityZombie.eS().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.ILLUSIONER, EntityIllagerIllusioner.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.IRON_GOLEM, EntityIronGolem.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.LLAMA, EntityLlama.fw().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.MAGMA_CUBE, EntityMagmaCube.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.MOOSHROOM, EntityCow.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.MULE, EntityHorseChestedAbstract.eL().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.OCELOT, EntityOcelot.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.PANDA, EntityPanda.eY().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.PARROT, EntityParrot.eU().a()
-                ).putFast(com.sk89q.worldedit.world.entity.EntityTypes.PHANTOM, EntityMonster.eR().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.PIG, EntityPig.eK().a())
-                .putFast(EntityTypes.PIGLIN, EntityPiglin.eT().a())
-                .putFast(EntityTypes.PIGLIN_BRUTE, EntityPiglinBrute.eS().a()) //new 1.16.2
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.PILLAGER, EntityPillager.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.PLAYER, EntityHuman.ep().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.POLAR_BEAR, EntityPolarBear.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.PUFFERFISH, EntityFish.m().a()).
-                putFast(com.sk89q.worldedit.world.entity.EntityTypes.RABBIT, EntityRabbit.eL().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.RAVAGER, EntityRavager.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.SALMON, EntityFish.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.SHEEP, EntitySheep.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.SHULKER, EntityShulker.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.SILVERFISH, EntitySilverfish.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.SKELETON, EntitySkeletonAbstract.m().a()).
-                putFast(com.sk89q.worldedit.world.entity.EntityTypes.SKELETON_HORSE, EntityHorseSkeleton.eL().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.SLIME, EntityMonster.eR().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.SNOW_GOLEM, EntitySnowman.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.SPIDER, EntitySpider.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.SQUID, EntitySquid.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.STRAY, EntitySkeletonAbstract.m().a())
-                .putFast(EntityTypes.STRIDER, EntityStrider.eM().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.TRADER_LLAMA, EntityLlama.fw().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.TROPICAL_FISH, EntityFish.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.TURTLE, EntityTurtle.eM().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.VEX, EntityVex.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.VILLAGER, EntityVillager.eY().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.VINDICATOR, EntityVindicator.eK()
-                        .a()).putFast(com.sk89q.worldedit.world.entity.EntityTypes.WANDERING_TRADER, EntityInsentient.p().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.WITCH, EntityWitch.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.WITHER, EntityWither.eK().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.WITHER_SKELETON, EntitySkeletonAbstract.m().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.WOLF, EntityWolf.eU().a())
-                .putFast(EntityTypes.ZOGLIN, EntityZoglin.m().a()).
-                putFast(com.sk89q.worldedit.world.entity.EntityTypes.ZOMBIE, EntityZombie.eS().a())
-                .putFast(com.sk89q.worldedit.world.entity.EntityTypes.ZOMBIE_HORSE, EntityHorseZombie.eL().a()).
-                putFast(com.sk89q.worldedit.world.entity.EntityTypes.ZOMBIE_VILLAGER, EntityZombie.eS().a())
-                .putFast(EntityTypes.ZOMBIFIED_PIGLIN, EntityPigZombie.eW().a());
+                .putFast(EntityType.ARMOR_STAND, ArmorStand.createLivingAttributes().build()) 				//Armor-Stand
+                .putFast(EntityType.AXOLOTL, Axolotl.createAttributes().build()) 							//Axolotl
+                .putFast(EntityType.BAT, Bat.createAttributes().build())									//Bat
+                .putFast(EntityType.BEE, Bee.createAttributes().build())									//Bee
+                .putFast(EntityType.BLAZE, Blaze.createAttributes().build())								//Blaze
+                .putFast(EntityType.CAT, Cat.createAttributes().build())									//Cat
+                .putFast(EntityType.CAVE_SPIDER, CaveSpider.createAttributes().build())						//CaveSpider
+                .putFast(EntityType.CHICKEN, Chicken.createAttributes().build())							//Chicken
+                .putFast(EntityType.COD, Cod.createAttributes().build())									//Cod
+                .putFast(EntityType.COW, Cow.createAttributes().build())									//Cow
+                .putFast(EntityType.CREEPER, Creeper.createAttributes().build())							//Creeper
+                .putFast(EntityType.DOLPHIN, Dolphin.createAttributes().build())							//Dolphin
+                .putFast(EntityType.DONKEY, Donkey.createLivingAttributes().build())						//Donkey
+                .putFast(EntityType.ZOMBIE, Zombie.createAttributes().build())								//Drowned
+                .putFast(EntityType.ELDER_GUARDIAN, ElderGuardian.createAttributes().build())				//Elder Guardian
+                .putFast(EntityType.ENDERMAN, EnderMan.createAttributes().build())							//Enderman
+                .putFast(EntityType.ENDERMITE, Endermite.createAttributes().build())						//Endermite
+                .putFast(EntityType.ENDER_DRAGON, EnderDragon.createAttributes().build())					//Ender Dragon
+                .putFast(EntityType.EVOKER, Evoker.createAttributes().build())								//Evoker
+                .putFast(EntityType.FOX, Fox.createAttributes().build())									//Fox
+                .putFast(EntityType.GHAST, Ghast.createAttributes().build())								//Ghast
+                .putFast(EntityType.GIANT, Giant.createAttributes().build())								//Giant
+                .putFast(EntityType.GUARDIAN, Guardian.createAttributes().build())							//Guardian
+                .putFast(EntityType.GOAT, Goat.createAttributes().build())									//Goat
+                .putFast(EntityType.GLOW_SQUID, GlowSquid.createAttributes().build())						//GlowSquid
+                .putFast(EntityType.HOGLIN, Hoglin.createAttributes().build())								//Hoglin
+                .putFast(EntityType.HORSE, Horse.createBaseHorseAttributes().build())						//Horse
+                .putFast(EntityType.HUSK, Husk.createAttributes().build())									//Husk
+                .putFast(EntityType.ILLUSIONER, Illusioner.createAttributes().build())						//Illusioner
+                .putFast(EntityType.IRON_GOLEM, IronGolem.createAttributes().build())						//Iron Golem
+                .putFast(EntityType.LLAMA, Llama.createAttributes().build())								//Llama
+                .putFast(EntityType.MAGMA_CUBE, MagmaCube.createAttributes().build())						//Magma Cube
+                .putFast(EntityType.MOOSHROOM, MushroomCow.createAttributes().build())						//Mooshroom
+                .putFast(EntityType.MULE, Mule.createLivingAttributes().build())							//Mule
+                .putFast(EntityType.OCELOT, Ocelot.createAttributes().build())								//Ocelot
+                .putFast(EntityType.PANDA, Panda.createAttributes().build())								//Panda
+                .putFast(EntityType.PARROT, Parrot.createAttributes().build())								//Parrot
+                .putFast(EntityType.PHANTOM, Phantom.createLivingAttributes().build())						//Phantom
+                .putFast(EntityType.PIG, Pig.createAttributes().build())									//Pig
+                .putFast(EntityType.PIGLIN, Piglin.createAttributes().build())								//Piglin
+                .putFast(EntityType.PIGLIN_BRUTE, PiglinBrute.createAttributes().build()) 					//Piglin Brute
+                .putFast(EntityType.PILLAGER, Pillager.createAttributes().build())							//Pillager
+                .putFast(EntityType.PLAYER, Player.createAttributes().build())								//Player
+                .putFast(EntityType.POLAR_BEAR, PolarBear.createAttributes().build())						//PolarBear
+                .putFast(EntityType.PUFFERFISH, Pufferfish.createAttributes().build())						//Pufferfish
+                .putFast(EntityType.RABBIT, Rabbit.createAttributes().build())								//Rabbit
+                .putFast(EntityType.RAVAGER, Ravager.createAttributes().build())							//Ravager
+                .putFast(EntityType.SALMON, Salmon.createAttributes().build())								//Salmon
+                .putFast(EntityType.SHEEP, Sheep.createAttributes().build())								//Sheep
+                .putFast(EntityType.SHULKER, Shulker.createAttributes().build())							//Shulker
+                .putFast(EntityType.SILVERFISH, Silverfish.createAttributes().build())						//Silverfish
+                .putFast(EntityType.SKELETON, Skeleton.createAttributes().build())							//Skeleton
+                .putFast(EntityType.SKELETON_HORSE, SkeletonHorse.createAttributes().build())				//Skeleton Horse
+                .putFast(EntityType.SLIME, Slime.createLivingAttributes().build())							//Slime
+                .putFast(EntityType.SNOW_GOLEM, SnowGolem.createAttributes().build())						//Snow Golem
+                .putFast(EntityType.SPIDER, Spider.createAttributes().build())								//Spider
+                .putFast(EntityType.SQUID, Squid.createAttributes().build())								//Squid
+                .putFast(EntityType.STRAY, Stray.createAttributes().build())								//Stray
+                .putFast(EntityType.STRIDER, Strider.createAttributes().build())							//Strider
+                .putFast(EntityType.TRADER_LLAMA, TraderLlama.createAttributes().build())					//Trader_Llama
+                .putFast(EntityType.TROPICAL_FISH, TropicalFish.createAttributes().build())					//Tropical Fish
+                .putFast(EntityType.TURTLE, Turtle.createAttributes().build())								//Turtle
+                .putFast(EntityType.VEX, Vex.createAttributes().build())									//Vex
+                .putFast(EntityType.VILLAGER, Villager.createAttributes().build())							//Villager
+                .putFast(EntityType.VINDICATOR, Vindicator.createAttributes().build())						//Vindicator
+                .putFast(EntityType.WANDERING_TRADER, WanderingTrader.createLivingAttributes().build())		//Wandering Trader
+                .putFast(EntityType.WITCH, Witch.createAttributes().build())								//Witch
+                .putFast(EntityType.WITHER, WitherBoss.createAttributes().build())							//Wither
+                .putFast(EntityType.WITHER_SKELETON, WitherSkeleton.createAttributes().build())				//Wither Skeleton
+                .putFast(EntityType.WOLF, Wolf.createAttributes().build())									//Wolf
+                .putFast(EntityType.ZOGLIN, Zoglin.createAttributes().build())								//Zoglin
+                .putFast(EntityType.ZOMBIE, Zombie.createAttributes().build())								//Zombie
+                .putFast(EntityType.ZOMBIE_HORSE, ZombieHorse.createAttributes().build())					//Zombie Horse
+                .putFast(EntityType.ZOMBIE_VILLAGER, ZombieVillager.createAttributes().build())				//Zombie Villager
+                .putFast(EntityType.ZOMBIFIED_PIGLIN, ZombifiedPiglin.createAttributes().build());			//Zombie Piglin
 
     }
 
-    public static AttributeProvider getAttribute(EntityTypes<?> types) {
+    public static AttributeSupplier getAttribute(EntityType<?> types) {
         return defaultAttribute.get(types);
     }
 
-    public static void registerCustomEntityTypes(EntityTypes<? extends EntityLiving> customType, EntityTypes<? extends EntityLiving> rootType) {
+    public static void registerCustomEntityType(EntityType<?> customType, EntityType<?> rootType) {
         defaultAttribute.put(customType, getAttribute(rootType));
     }
 
     static class FastMap<K, V> extends HashMap<K, V> {
 
-        public FastMap<K, V> putFast(K key, V value) {
-            put(key, value);
+        public FastMap<K, V> putFast(K key, AttributeSupplier attributeSupplier) {
+            put(key, (V) attributeSupplier);
             return this;
         }
     }
